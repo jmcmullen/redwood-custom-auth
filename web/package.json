@@ -12,6 +12,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hook-form-input": "^1.1.10",
     "styletron-engine-atomic": "^1.4.6",
     "styletron-react": "^5.2.7"
   }

@@ -1,6 +1,6 @@
 import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
-import UserForm from 'src/components/UserForm'
+import LoginForm from 'src/components/LoginForm'
 
 const CREATE_USER_MUTATION = gql`
   mutation CreateUserMutation($input: CreateUserInput!) {
@@ -27,7 +27,7 @@ const NewUser = () => {
         <h2 className="rw-heading rw-heading-secondary">New User</h2>
       </header>
       <div className="rw-segment-main">
-        <UserForm onSave={onSave} loading={loading} error={error} />
+        <LoginForm onSave={onSave} loading={loading} error={error} />
       </div>
     </div>
   )
