@@ -3,16 +3,13 @@ import { Input } from 'baseui/input'
 import { Notification, KIND } from 'baseui/notification'
 import { useForm } from 'react-hook-form'
 import { RHFInput } from 'react-hook-form-input'
-import { routes, navigate } from '@redwoodjs/router'
+import { navigate, routes, Link } from '@redwoodjs/router'
 
-import { Form, NextBtn, LinkText, LinkContanier } from './style'
+import { Form, NextBtn, LinkText } from './style'
 
-const LoginForm = (props) => {
+const SignUpForm = (props) => {
   const { register, handleSubmit, setValue, errors } = useForm()
-  const onSubmit = (data) => {
-    console.log('form', data)
-    props.onSave(data, props?.user?.id)
-  }
+  const onSubmit = (data) => props.onSave(data, props?.user?.id)
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} error={props.error}>
@@ -28,6 +25,7 @@ const LoginForm = (props) => {
             props.error.message}
         </Notification>
       )}
+
       <FormControl label={() => 'Email'}>
         <RHFInput
           name="email"
@@ -38,6 +36,7 @@ const LoginForm = (props) => {
           as={<Input />}
         />
       </FormControl>
+
       <FormControl label={() => 'Password'}>
         <RHFInput
           name="password"
@@ -48,15 +47,25 @@ const LoginForm = (props) => {
           as={<Input />}
         />
       </FormControl>
+
+      <FormControl label={() => 'Confirm Password'}>
+        <RHFInput
+          name="confirmPassword"
+          type="password"
+          setValue={setValue}
+          error={!!errors.confirmPassword}
+          register={register({ required: true })}
+          as={<Input />}
+        />
+      </FormControl>
+
       <NextBtn type="submit" disabled={props.loading} className="uppercase">
-        Login
+        Sign Up
       </NextBtn>
-      <LinkContanier>
-        <LinkText to={routes.signUp()}>Create an account</LinkText> or
-        <LinkText to={routes.passwordReset()}>Reset password</LinkText>
-      </LinkContanier>
+
+      <LinkText to={routes.logIn()}>Already have an account? Log In</LinkText>
     </Form>
   )
 }
 
-export default LoginForm
+export default SignUpForm

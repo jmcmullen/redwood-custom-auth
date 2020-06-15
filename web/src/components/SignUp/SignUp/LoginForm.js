@@ -3,9 +3,10 @@ import { Input } from 'baseui/input'
 import { Notification, KIND } from 'baseui/notification'
 import { useForm } from 'react-hook-form'
 import { RHFInput } from 'react-hook-form-input'
-import { routes, navigate } from '@redwoodjs/router'
 
-import { Form, NextBtn, LinkText, LinkContanier } from './style'
+import { NextBtn } from 'src/pages/LogInPage/LogInPage.style'
+
+import { Form } from './style'
 
 const LoginForm = (props) => {
   const { register, handleSubmit, setValue, errors } = useForm()
@@ -28,6 +29,7 @@ const LoginForm = (props) => {
             props.error.message}
         </Notification>
       )}
+
       <FormControl label={() => 'Email'}>
         <RHFInput
           name="email"
@@ -38,6 +40,7 @@ const LoginForm = (props) => {
           as={<Input />}
         />
       </FormControl>
+
       <FormControl label={() => 'Password'}>
         <RHFInput
           name="password"
@@ -48,13 +51,10 @@ const LoginForm = (props) => {
           as={<Input />}
         />
       </FormControl>
+
       <NextBtn type="submit" disabled={props.loading} className="uppercase">
         Login
       </NextBtn>
-      <LinkContanier>
-        <LinkText to={routes.signUp()}>Create an account</LinkText> or
-        <LinkText to={routes.passwordReset()}>Reset password</LinkText>
-      </LinkContanier>
     </Form>
   )
 }

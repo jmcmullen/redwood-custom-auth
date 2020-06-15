@@ -15,14 +15,10 @@ export const Form = styled('form', {
   },
 })
 
-export const LinkContanier = styled('div', {
-  display: 'flex',
-  padding: '1rem',
-  justifyContent: 'center',
-})
-
 export const LinkText = styled(Link, {
-  padding: '0 .5rem',
+  width: '100%',
+  padding: '1rem',
+  display: 'block',
   cursor: 'pointer',
   textAlign: 'center',
 })

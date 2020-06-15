@@ -1,6 +1,5 @@
 import { styled } from 'styletron-react'
 import { Button } from 'baseui/button'
-import { Link } from '@redwoodjs/router'
 
 export const Title = styled('h2', {
   margin: '1rem 0',
@@ -15,14 +14,10 @@ export const Form = styled('form', {
   },
 })
 
-export const LinkContanier = styled('div', {
-  display: 'flex',
+export const LinkText = styled('a', {
+  width: '100%',
   padding: '1rem',
-  justifyContent: 'center',
-})
-
-export const LinkText = styled(Link, {
-  padding: '0 .5rem',
+  display: 'block',
   cursor: 'pointer',
   textAlign: 'center',
 })
