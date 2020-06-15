@@ -1,10 +1,10 @@
 import DashboardLayout from 'src/layouts/DashboardLayout'
-import NewUser from 'src/components/NewUser'
+import Login from 'src/components/Login'
 
 const NewUserPage = () => {
   return (
     <DashboardLayout>
-      <NewUser />
+      <Login />
     </DashboardLayout>
   )
 }

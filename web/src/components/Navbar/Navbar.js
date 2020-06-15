@@ -6,6 +6,7 @@ import {
 } from 'baseui/header-navigation'
 import { StyledLink } from 'baseui/link'
 import { styled } from 'baseui'
+
 import LogoImg from 'src/assets/images/logo.svg'
 
 const Logo = styled(LogoImg, {

@@ -3,7 +3,6 @@ import gql from 'graphql-tag'
 export const schema = gql`
   type User {
     id: String!
-    username: String!
     email: String!
     verified: Boolean!
     password: String!
@@ -22,23 +21,25 @@ export const schema = gql`
     user(id: String!): User!
   }
 
-  input CreateUserInput {
-    username: String!
+  input LoginInput {
     email: String!
-    verified: Boolean!
     password: String!
-    role: UserType!
   }
 
   input UpdateUserInput {
-    username: String
     email: String
     verified: Boolean
     password: String
     role: UserType
   }
 
+  type AuthResponse {
+    user: User
+    token: String!
+  }
+
   type Mutation {
+    login(id: ID!, password: String!): AuthResponse
     createUser(input: CreateUserInput!): User!
     updateUser(id: String!, input: UpdateUserInput!): User!
     deleteUser(id: String!): User!

@@ -30,17 +30,6 @@ const LoginForm = (props) => {
         </Notification>
       )}
 
-      <FormControl label={() => 'Username'}>
-        <RHFInput
-          autoFocus
-          name="username"
-          setValue={setValue}
-          register={register({ required: true })}
-          error={!!errors.username}
-          as={<Input />}
-        />
-      </FormControl>
-
       <FormControl label={() => 'Email'}>
         <RHFInput
           name="email"

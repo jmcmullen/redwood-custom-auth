@@ -2,35 +2,26 @@ import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
 import LoginForm from 'src/components/LoginForm'
 
-const CREATE_USER_MUTATION = gql`
-  mutation CreateUserMutation($input: CreateUserInput!) {
-    createUser(input: $input) {
+const LOGIN_MUTATION = gql`
+  mutation LoginMutation($input: LoginInput!) {
+    login(input: $input) {
       id
     }
   }
 `
 
 const NewUser = () => {
-  const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION, {
+  const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: () => {
       navigate(routes.users())
     },
   })
 
   const onSave = (input) => {
-    createUser({ variables: { input } })
+    login({ variables: { input } })
   }
 
-  return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">New User</h2>
-      </header>
-      <div className="rw-segment-main">
-        <LoginForm onSave={onSave} loading={loading} error={error} />
-      </div>
-    </div>
-  )
+  return <LoginForm onSave={onSave} loading={loading} error={error} />
 }
 
 export default NewUser
