@@ -1,11 +1,11 @@
-import UsersLayout from 'src/layouts/UsersLayout'
+import DashboardLayout from 'src/layouts/DashboardLayout'
 import NewUser from 'src/components/NewUser'
 
 const NewUserPage = () => {
   return (
-    <UsersLayout>
+    <DashboardLayout>
       <NewUser />
-    </UsersLayout>
+    </DashboardLayout>
   )
 }
 

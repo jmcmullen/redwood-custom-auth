@@ -1,11 +1,11 @@
-import UsersLayout from 'src/layouts/UsersLayout'
+import DashboardLayout from 'src/layouts/DashboardLayout'
 import UserCell from 'src/components/UserCell'
 
 const UserPage = ({ id }) => {
   return (
-    <UsersLayout>
+    <DashboardLayout>
       <UserCell id={id} />
-    </UsersLayout>
+    </DashboardLayout>
   )
 }
 

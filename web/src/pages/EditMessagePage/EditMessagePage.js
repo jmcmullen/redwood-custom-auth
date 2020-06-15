@@ -1,11 +1,11 @@
-import MessagesLayout from 'src/layouts/MessagesLayout'
+import DashboardLayout from 'src/layouts/DashboardLayout'
 import EditMessageCell from 'src/components/EditMessageCell'
 
 const EditMessagePage = ({ id }) => {
   return (
-    <MessagesLayout>
+    <DashboardLayout>
       <EditMessageCell id={id} />
-    </MessagesLayout>
+    </DashboardLayout>
   )
 }
 

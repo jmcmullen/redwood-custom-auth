@@ -1,11 +1,11 @@
-import MessagesLayout from 'src/layouts/MessagesLayout'
+import DashboardLayout from 'src/layouts/DashboardLayout'
 import MessagesCell from 'src/components/MessagesCell'
 
 const MessagesPage = () => {
   return (
-    <MessagesLayout>
+    <DashboardLayout>
       <MessagesCell />
-    </MessagesLayout>
+    </DashboardLayout>
   )
 }
 
