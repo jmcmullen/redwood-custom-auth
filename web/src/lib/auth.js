@@ -3,19 +3,17 @@ import { navigate, routes } from '@redwoodjs/router'
 const authClient = () => {
   return {
     type: 'custom',
-    // client: () => {}, // Is this needed? no
     logIn: () => {
-      // graphql mutation
-      // save token
+      navigate(routes.logIn())
     },
     logOut: () => {
-      // logout mutation
-      // delete token
+      window.localStorage.removeItem('token')
+      navigate(routes.logIn())
     },
-    getToken: () => window.localStorage.getItem('token') || 'null',
-    currentUser: async () => {
+    getToken: () => window.localStorage.getItem('token') || null,
+    currentUser: async (data) => {
       // @TODO: Run GQL Query currentUser
-      return 'abc'
+      console.log('currenUser', data)
     },
     getUserMetadata: () => {
       // ??

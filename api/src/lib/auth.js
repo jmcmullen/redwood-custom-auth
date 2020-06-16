@@ -9,13 +9,7 @@ import { AuthenticationError, context } from '@redwoodjs/api'
 import { db } from './db'
 
 export const getCurrentUser = async ({ id }) => {
-  if (!id) return null
-
-  const user = await db.user.findOne({ where: { id } })
-  if (!user)
-    throw new AuthenticationError("You don't have permission to do that.")
-
-  return user
+  return await db.user.findOne({ where: { id } })
 }
 
 // Use this function in your services to check that a user is logged in, and

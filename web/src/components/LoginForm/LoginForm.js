@@ -10,7 +10,6 @@ import { Form, NextBtn, LinkText, LinkContanier } from './style'
 const LoginForm = (props) => {
   const { register, handleSubmit, setValue, errors } = useForm()
   const onSubmit = (data) => {
-    console.log('form', data)
     props.onSave(data, props?.user?.id)
   }
 

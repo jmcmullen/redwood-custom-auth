@@ -6,6 +6,7 @@ import {
 } from 'baseui/header-navigation'
 import { styled } from 'baseui'
 import { routes } from '@redwoodjs/router'
+import { isAuthenticated } from '@redwoodjs/auth'
 
 import LogoImg from 'src/assets/images/logo.svg'
 
@@ -31,6 +32,7 @@ const Navbar = () => {
       <StyledNavigationList $align={ALIGN.left}>
         <StyledNavigationItem>
           <Logo />
+          <code>isAuthenticated = {isAuthenticated}</code>
         </StyledNavigationItem>
       </StyledNavigationList>
       <StyledNavigationList $align={ALIGN.center} />
