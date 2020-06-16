@@ -21,6 +21,7 @@ export const LinkText = styled(Link, {
   display: 'block',
   cursor: 'pointer',
   textAlign: 'center',
+  color: '#777777',
 })
 
 export const NextBtn = styled(Button, {

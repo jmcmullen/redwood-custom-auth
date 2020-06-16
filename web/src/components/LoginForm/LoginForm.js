@@ -3,7 +3,7 @@ import { Input } from 'baseui/input'
 import { Notification, KIND } from 'baseui/notification'
 import { useForm } from 'react-hook-form'
 import { RHFInput } from 'react-hook-form-input'
-import { routes, navigate } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router'
 
 import { Form, NextBtn, LinkText, LinkContanier } from './style'
 
@@ -42,10 +42,11 @@ const LoginForm = (props) => {
         <RHFInput
           name="password"
           type="password"
+          autoComplete="current-password"
           setValue={setValue}
           error={!!errors.password}
           register={register({ required: true })}
-          as={<Input />}
+          as={<Input type="password" />}
         />
       </FormControl>
       <NextBtn type="submit" disabled={props.loading} className="uppercase">

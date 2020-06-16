@@ -4,6 +4,8 @@ import sendgrid from '@sendgrid/mail'
 import { db } from 'src/lib/db'
 import { signToken, verifyToken, getUser } from 'src/lib/jwt'
 
+sendgrid.setApiKey(process.env.SENDGRID_SECRET)
+
 export const users = () => {
   return db.user.findMany()
 }
@@ -35,9 +37,9 @@ export const register = async ({ input }) => {
 
   sendgrid.send({
     to: user.email,
-    from: 'noreply@test.fun',
-    subject: 'Welcome to test.fun',
-    html: `<strong>Thanks for joining test.fun,</strong>
+    from: 'noreply@nique.io',
+    subject: 'Welcome to my website',
+    html: `<strong>Thanks for joining my site,</strong>
           <br><br>Click the link below to verify your account:<br>
           <a href="${process.env.CLIENT_BASE_URL}/verify?t=${user.verifyToken}">
           ${process.env.CLIENT_BASE_URL}/verify?t=${user.verifyToken}</a>`,
@@ -64,6 +66,31 @@ export const verify = async ({ input }) => {
   if (!user) throw new Error('Invalid verification token')
 
   return await user.update({ data: { verified: true } })
+}
+
+export const resetPassword = async ({ input }) => {
+  const user = await db.user.findOne({
+    where: { email: input.email.toLowerCase() },
+  })
+
+  if (user) {
+    const token = signToken(user, user.password)
+
+    sendgrid.send({
+      to: user.email,
+      from: 'noreply@nique.io',
+      subject: 'Forgot your password?',
+      html: `<p>Someone (hopefully you!) has submitted a forgotten password request for your account.</p>
+        <p>If this was you, click the following link to reset your password:</p>
+        <a href="${process.env.CLIENT_BASE_URL}/reset-password?t=${token}">
+          ${process.env.CLIENT_BASE_URL}/reset-password?t=${token}
+        </a>
+        <p>If you do not wish to change your password, just ignore this email and nothing will happen.</p>
+        `,
+    })
+  }
+
+  return { success: true }
 }
 
 export const updateUser = ({ id, input }) => {

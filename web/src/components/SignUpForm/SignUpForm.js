@@ -37,14 +37,22 @@ const SignUpForm = (props) => {
         />
       </FormControl>
 
-      <FormControl label={() => 'Password'}>
+      <FormControl
+        label={() => 'Password'}
+        caption={() =>
+          'Minimum eight characters, at least one letter and one number'
+        }
+      >
         <RHFInput
           name="password"
           type="password"
           setValue={setValue}
           error={!!errors.password}
-          register={register({ required: true })}
-          as={<Input />}
+          register={register({
+            required: true,
+            pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g,
+          })}
+          as={<Input type="password" />}
         />
       </FormControl>
 
@@ -55,7 +63,7 @@ const SignUpForm = (props) => {
           setValue={setValue}
           error={!!errors.confirmPassword}
           register={register({ required: true })}
-          as={<Input />}
+          as={<Input type="password" />}
         />
       </FormControl>
 

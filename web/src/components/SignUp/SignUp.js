@@ -17,7 +17,7 @@ const REGISTER_MUTATION = gql`
 const SignUp = () => {
   const [register, { loading, error }] = useMutation(REGISTER_MUTATION, {
     onCompleted: () => {
-      navigate(routes.users())
+      navigate(routes.dashboard())
     },
   })
 
