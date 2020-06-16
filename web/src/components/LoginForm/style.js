@@ -8,7 +8,8 @@ export const Title = styled('h2', {
 
 export const Form = styled('form', {
   width: '100%',
-  maxWidth: '800px',
+  maxWidth: '500px',
+  margin: 'auto',
 
   '@media screen and (min-width: 796px)': {
     padding: `2rem 0`,

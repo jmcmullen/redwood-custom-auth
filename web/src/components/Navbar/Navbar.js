@@ -6,6 +6,7 @@ import {
 } from 'baseui/header-navigation'
 import { styled } from 'baseui'
 import { routes } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth'
 
 import LogoImg from 'src/assets/images/logo.svg'
 
@@ -18,6 +19,8 @@ const Logo = styled(LogoImg, {
 })
 
 const Navbar = () => {
+  const { isAuthenticated } = useAuth()
+
   return (
     <HeaderNavigation
       overrides={{
@@ -36,12 +39,20 @@ const Navbar = () => {
       <StyledNavigationList $align={ALIGN.center} />
 
       <StyledNavigationList $align={ALIGN.right}>
-        <StyledNavigationItem>
-          <NavLink to={routes.logIn()}>Log In</NavLink>
-        </StyledNavigationItem>
-        <StyledNavigationItem>
-          <NavLink to={routes.signUp()}>Sign Up</NavLink>
-        </StyledNavigationItem>
+        {!isAuthenticated ? (
+          <>
+            <StyledNavigationItem>
+              <NavLink to={routes.logIn()}>Log In</NavLink>
+            </StyledNavigationItem>
+            <StyledNavigationItem>
+              <NavLink to={routes.signUp()}>Sign Up</NavLink>
+            </StyledNavigationItem>
+          </>
+        ) : (
+          <StyledNavigationItem>
+            <NavLink to={routes.logOut()}>Sign Out</NavLink>
+          </StyledNavigationItem>
+        )}
       </StyledNavigationList>
 
       <StyledNavigationList $align={ALIGN.right}>

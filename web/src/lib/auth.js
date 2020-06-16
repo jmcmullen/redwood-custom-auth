@@ -11,10 +11,10 @@ const authClient = () => {
       navigate(routes.logIn())
     },
     getToken: () => window.localStorage.getItem('token') || null,
-    currentUser: async (data) => {
-      // @TODO: Run GQL Query currentUser
-      console.log('currenUser', data)
-    },
+    // currentUser: async (data) => {
+    //   // @TODO: Run GQL Query currentUser
+    //   console.log('currenUser', data)
+    // },
     getUserMetadata: () => {
       // ??
       return window.localStorage.getItem('token')
