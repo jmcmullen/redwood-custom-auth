@@ -4,22 +4,25 @@ import { navigate, routes } from '@redwoodjs/router'
 import SignUpForm from '../SignUpForm/SignUpForm'
 
 const REGISTER_MUTATION = gql`
-  mutation LoginMutation($input: LoginInput!) {
-    login(input: $input) {
-      id
+  mutation RegisterMutation($input: RegisterInput!) {
+    register(input: $input) {
+      token
+      user {
+        id
+      }
     }
   }
 `
 
 const SignUp = () => {
-  const [login, { loading, error }] = useMutation(REGISTER_MUTATION, {
+  const [register, { loading, error }] = useMutation(REGISTER_MUTATION, {
     onCompleted: () => {
       navigate(routes.users())
     },
   })
 
   const onSave = (input) => {
-    login({ variables: { input } })
+    register({ variables: { input } })
   }
 
   return <SignUpForm onSave={onSave} loading={loading} error={error} />

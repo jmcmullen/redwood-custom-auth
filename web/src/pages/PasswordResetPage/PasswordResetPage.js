@@ -1,11 +1,12 @@
+import DashboardLayout from 'src/layouts/DashboardLayout'
+
 import PasswordReset from 'src/components/PasswordReset/PasswordReset'
 
 const PasswordResetPage = () => {
   return (
-    <div>
-      <h1>PasswordResetPage</h1>
+    <DashboardLayout>
       <PasswordReset />
-    </div>
+    </DashboardLayout>
   )
 }
 

@@ -29,6 +29,7 @@ export const schema = gql`
   input RegisterInput {
     email: String!
     password: String!
+    confirmPassword: String!
   }
 
   input VerifyInput {

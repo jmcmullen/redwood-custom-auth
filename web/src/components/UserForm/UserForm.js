@@ -23,22 +23,6 @@ const UserForm = (props) => {
         />
 
         <Label
-          name="username"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Username
-        </Label>
-        <TextField
-          name="username"
-          defaultValue={props.user?.username}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
-        <FieldError name="username" className="rw-field-error" />
-
-        <Label
           name="email"
           className="rw-label"
           errorClassName="rw-label rw-label-error"

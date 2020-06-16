@@ -5,7 +5,12 @@ import LoginForm from 'src/components/LoginForm'
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($input: LoginInput!) {
     login(input: $input) {
-      id
+      token
+      user {
+        id
+        role
+        email
+      }
     }
   }
 `

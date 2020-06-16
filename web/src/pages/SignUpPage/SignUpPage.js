@@ -1,10 +1,11 @@
-import SignUp from 'src/components/SignUp/SignUp'
+import SignUp from 'src/components/SignUp'
+import DashboardLayout from 'src/layouts/DashboardLayout'
 
 const SignUpPage = () => {
   return (
-    <div>
+    <DashboardLayout>
       <SignUp />
-    </div>
+    </DashboardLayout>
   )
 }
 

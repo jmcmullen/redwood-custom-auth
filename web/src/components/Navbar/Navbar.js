@@ -4,10 +4,12 @@ import {
   StyledNavigationList,
   StyledNavigationItem,
 } from 'baseui/header-navigation'
-import { StyledLink } from 'baseui/link'
 import { styled } from 'baseui'
+import { routes } from '@redwoodjs/router'
 
 import LogoImg from 'src/assets/images/logo.svg'
+
+import { NavLink } from './style'
 
 const Logo = styled(LogoImg, {
   background: 'black',
@@ -35,7 +37,10 @@ const Navbar = () => {
 
       <StyledNavigationList $align={ALIGN.right}>
         <StyledNavigationItem>
-          <StyledLink href="#">Login</StyledLink>
+          <NavLink to={routes.logIn()}>Log In</NavLink>
+        </StyledNavigationItem>
+        <StyledNavigationItem>
+          <NavLink to={routes.signUp()}>Sign Up</NavLink>
         </StyledNavigationItem>
       </StyledNavigationList>
 

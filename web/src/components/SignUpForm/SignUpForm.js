@@ -3,7 +3,7 @@ import { Input } from 'baseui/input'
 import { Notification, KIND } from 'baseui/notification'
 import { useForm } from 'react-hook-form'
 import { RHFInput } from 'react-hook-form-input'
-import { navigate, routes, Link } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router'
 
 import { Form, NextBtn, LinkText } from './style'
 

@@ -4,7 +4,6 @@ export const QUERY = gql`
   query FIND_USER_BY_ID($id: String!) {
     user: user(id: $id) {
       id
-      username
       email
       verified
       password

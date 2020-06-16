@@ -42,7 +42,6 @@ const UsersList = ({ users }) => {
         <thead>
           <tr>
             <th>id</th>
-            <th>username</th>
             <th>email</th>
             <th>verified</th>
             <th>password</th>
@@ -54,7 +53,6 @@ const UsersList = ({ users }) => {
           {users.map((user) => (
             <tr key={user.id}>
               <td>{truncate(user.id)}</td>
-              <td>{truncate(user.username)}</td>
               <td>{truncate(user.email)}</td>
               <td>{truncate(user.verified)}</td>
               <td>{truncate(user.password)}</td>

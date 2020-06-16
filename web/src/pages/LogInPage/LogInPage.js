@@ -1,11 +1,11 @@
 import Login from 'src/components/Login'
+import DashboardLayout from 'src/layouts/DashboardLayout'
 
 const LogInPage = () => {
   return (
-    <div>
-      <h1>LogInPage</h1>
+    <DashboardLayout>
       <Login />
-    </div>
+    </DashboardLayout>
   )
 }
 

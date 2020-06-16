@@ -38,10 +38,6 @@ const User = ({ user }) => {
               <td>{user.id}</td>
             </tr>
             <tr>
-              <th>username</th>
-              <td>{user.username}</td>
-            </tr>
-            <tr>
               <th>email</th>
               <td>{user.email}</td>
             </tr>
