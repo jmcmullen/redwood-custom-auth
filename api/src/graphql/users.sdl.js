@@ -26,6 +26,15 @@ export const schema = gql`
     password: String!
   }
 
+  input RegisterInput {
+    email: String!
+    password: String!
+  }
+
+  input VerifyInput {
+    token: String!
+  }
+
   input UpdateUserInput {
     email: String
     verified: Boolean
@@ -35,11 +44,13 @@ export const schema = gql`
 
   type AuthResponse {
     user: User
-    token: String!
+    token: String
   }
 
   type Mutation {
-    login(id: ID!, password: String!): AuthResponse
+    login(input: LoginInput!): AuthResponse!
+    register(input: RegisterInput): AuthResponse!
+    verify(input: VerifyInput): User!
     updateUser(id: String!, input: UpdateUserInput!): User!
     deleteUser(id: String!): User!
   }

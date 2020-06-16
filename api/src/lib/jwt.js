@@ -1,13 +1,13 @@
 import { sign, verify } from 'jsonwebtoken'
 
-export function signToken(user, secret) {
+export function signToken(user) {
   return sign(
     { id: user.id, email: user.email, role: user.role },
     process.env.TOKEN_SECRET
   )
 }
 
-export function verifyToken(token, secret) {
+export function verifyToken(token) {
   if (token) return verify(token, process.env.TOKEN_SECRET)
   return null
 }

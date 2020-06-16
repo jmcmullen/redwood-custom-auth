@@ -14,12 +14,7 @@ export const user = ({ id }) => {
   })
 }
 
-export const createUser = async ({ input }) => {
-  const isValid = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/gim.test(
-    input.username
-  )
-  if (!isValid) throw new Error('Please enter a valid username')
-
+export const register = async ({ input }) => {
   const isEmail = /\S+@\S+\.\S+/.test(input.email)
   if (!isEmail) throw new Error('Please enter a valid email address')
 
@@ -28,17 +23,13 @@ export const createUser = async ({ input }) => {
   })
   if (emailExists) throw new Error('An account already exists with that email')
 
-  const usernameExists = await db.user.findOne({
-    where: { username: input.username },
-  })
-  if (usernameExists) throw new Error('That username is taken')
+  if (input.password !== input.confirmPassword)
+    throw new Error('Password confirmation does not match')
 
   const user = await db.user.create({
     data: {
       email: input.email.toLowerCase(),
-      username: input.username.toLowerCase(),
       password: await hash(input.password, 10),
-      verifyToken: signToken(input.email),
     },
   })
 
@@ -53,6 +44,26 @@ export const createUser = async ({ input }) => {
   })
 
   return { user, token: signToken(user) }
+}
+
+export const login = async ({ input }) => {
+  const user = await db.user.findOne({ where: { email: input.email } })
+  if (!user) throw new Error('Invalid email or password')
+
+  const passwordMatch = await compare(input.password, user.password)
+  if (!passwordMatch) throw new Error('Invalid email or password')
+
+  return { user, token: signToken(user) }
+}
+
+export const verify = async ({ input }) => {
+  const valid = verifyToken(input.token)
+  if (!valid) throw new Error('Invalid verification token')
+
+  const user = await db.user.findOne({ where: { id: valid.id } })
+  if (!user) throw new Error('Invalid verification token')
+
+  return await user.update({ data: { verified: true } })
 }
 
 export const updateUser = ({ id, input }) => {
