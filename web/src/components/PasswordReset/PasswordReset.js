@@ -1,31 +1,67 @@
 import { useMutation } from '@redwoodjs/web'
+import { navigate, routes } from '@redwoodjs/router'
 import PasswordResetForm from 'src/components/PasswordResetForm'
+import PasswordForgotForm from 'src/components/PasswordForgotForm'
 
 const PASSWORD_RESET_MUTATION = gql`
   mutation ResetPasswordMutation($input: ResetPasswordInput!) {
     resetPassword(input: $input) {
+      user {
+        id
+      }
+      token
+    }
+  }
+`
+
+const PASSWORD_FORGOT_MUTATION = gql`
+  mutation ForgotPasswordMutation($input: ForgotPasswordInput!) {
+    forgotPassword(input: $input) {
       success
     }
   }
 `
 
-const PasswordReset = () => {
+const PasswordReset = ({ userId, resetToken }) => {
   const [sent, setSent] = React.useState(false)
-  const [resetPassword, { loading, error }] = useMutation(
-    PASSWORD_RESET_MUTATION,
-    {
-      onCompleted: () => {
-        setSent(true)
-      },
-    }
-  )
+  const [resetPassword, resetStatus] = useMutation(PASSWORD_RESET_MUTATION, {
+    onCompleted: () => {
+      navigate(routes.dashboard())
+    },
+  })
 
-  const onSave = (input) => {
+  const [forgotPassword, forgotStatus] = useMutation(PASSWORD_FORGOT_MUTATION, {
+    onCompleted: () => {
+      setSent(true)
+    },
+  })
+
+  const onReset = (input) => {
+    input.userId = userId
+    input.token = resetToken
     resetPassword({ variables: { input } })
   }
 
+  const onForgot = (input) => {
+    forgotPassword({ variables: { input } })
+  }
+
   return !sent ? (
-    <PasswordResetForm onSave={onSave} loading={loading} error={error} />
+    <>
+      {!resetToken ? (
+        <PasswordForgotForm
+          onSave={onForgot}
+          loading={forgotStatus.loading}
+          error={forgotStatus.error}
+        />
+      ) : (
+        <PasswordResetForm
+          onSave={onReset}
+          loading={resetStatus.loading}
+          error={resetStatus.error}
+        />
+      )}
+    </>
   ) : (
     <p>
       Password reset instructions have been sent to you if an account exists

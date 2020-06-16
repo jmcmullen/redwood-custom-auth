@@ -6,7 +6,7 @@ import { RHFInput } from 'react-hook-form-input'
 
 import { Form, NextBtn } from './style'
 
-const PasswordForgotForm = (props) => {
+const PasswordResetForm = (props) => {
   const { register, handleSubmit, setValue, errors } = useForm()
   const onSubmit = (data) => props.onSave(data, props?.user?.id)
 
@@ -25,41 +25,22 @@ const PasswordForgotForm = (props) => {
         </Notification>
       )}
 
-      <FormControl
-        label={() => 'Password'}
-        caption={() =>
-          'Minimum eight characters, at least one letter and one number'
-        }
-      >
+      <FormControl label={() => 'Email'}>
         <RHFInput
-          name="password"
-          type="password"
+          name="email"
+          type="email"
           setValue={setValue}
-          error={!!errors.password}
-          register={register({
-            required: true,
-            pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g,
-          })}
-          as={<Input type="password" />}
-        />
-      </FormControl>
-
-      <FormControl label={() => 'Confirm Password'}>
-        <RHFInput
-          name="confirmPassword"
-          type="password"
-          setValue={setValue}
-          error={!!errors.confirmPassword}
+          error={!!errors.email}
           register={register({ required: true })}
-          as={<Input type="password" />}
+          as={<Input />}
         />
       </FormControl>
 
       <NextBtn type="submit" disabled={props.loading} className="uppercase">
-        Reset Password
+        Forgot Password
       </NextBtn>
     </Form>
   )
 }
 
-export default PasswordForgotForm
+export default PasswordResetForm

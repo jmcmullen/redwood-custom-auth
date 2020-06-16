@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 export const schema = gql`
   type User {
-    id: String!
+    id: ID!
     email: String!
     verified: Boolean!
     password: String!
@@ -36,8 +36,15 @@ export const schema = gql`
     token: String!
   }
 
-  input ResetPasswordInput {
+  input ForgotPasswordInput {
     email: String!
+  }
+
+  input ResetPasswordInput {
+    userId: ID!
+    token: String!
+    password: String!
+    confirmPassword: String!
   }
 
   input UpdateUserInput {
@@ -60,7 +67,9 @@ export const schema = gql`
     login(input: LoginInput!): AuthResponse!
     register(input: RegisterInput): AuthResponse!
     verify(input: VerifyInput): SuccessResponse!
-    resetPassword(input: ResetPasswordInput): SuccessResponse!
+    forgotPassword(input: ForgotPasswordInput): SuccessResponse!
+    resetPassword(input: ResetPasswordInput): AuthResponse!
+
     updateUser(id: String!, input: UpdateUserInput!): User!
     deleteUser(id: String!): User!
   }

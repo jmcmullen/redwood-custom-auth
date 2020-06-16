@@ -54,7 +54,7 @@ const LoginForm = (props) => {
       </NextBtn>
       <LinkContanier>
         <LinkText to={routes.signUp()}>Create an account</LinkText> or
-        <LinkText to={routes.passwordReset()}>Reset password</LinkText>
+        <LinkText to={routes.passwordReset()}>Forgot password?</LinkText>
       </LinkContanier>
     </Form>
   )

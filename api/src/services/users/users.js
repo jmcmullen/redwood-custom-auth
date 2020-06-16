@@ -2,9 +2,7 @@ import { compare, hash } from 'bcrypt'
 import sendgrid from '@sendgrid/mail'
 
 import { db } from 'src/lib/db'
-import { signToken, verifyToken, getUser } from 'src/lib/jwt'
-
-sendgrid.setApiKey(process.env.SENDGRID_SECRET)
+import { signToken, verifyToken } from 'src/lib/jwt'
 
 export const users = () => {
   return db.user.findMany()
@@ -35,14 +33,16 @@ export const register = async ({ input }) => {
     },
   })
 
+  const token = signToken(user, user.password)
+
   sendgrid.send({
     to: user.email,
     from: 'noreply@nique.io',
     subject: 'Welcome to my website',
     html: `<strong>Thanks for joining my site,</strong>
           <br><br>Click the link below to verify your account:<br>
-          <a href="${process.env.CLIENT_BASE_URL}/verify?t=${user.verifyToken}">
-          ${process.env.CLIENT_BASE_URL}/verify?t=${user.verifyToken}</a>`,
+          <a href="${process.env.CLIENT_BASE_URL}/verify?t=${token}">
+          ${process.env.CLIENT_BASE_URL}/verify?t=${token}</a>`,
   })
 
   return { user, token: signToken(user) }
@@ -68,7 +68,7 @@ export const verify = async ({ input }) => {
   return await user.update({ data: { verified: true } })
 }
 
-export const resetPassword = async ({ input }) => {
+export const forgotPassword = async ({ input }) => {
   const user = await db.user.findOne({
     where: { email: input.email.toLowerCase() },
   })
@@ -76,14 +76,16 @@ export const resetPassword = async ({ input }) => {
   if (user) {
     const token = signToken(user, user.password)
 
-    sendgrid.send({
+    sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
+
+    await sendgrid.send({
       to: user.email,
       from: 'noreply@nique.io',
       subject: 'Forgot your password?',
       html: `<p>Someone (hopefully you!) has submitted a forgotten password request for your account.</p>
         <p>If this was you, click the following link to reset your password:</p>
-        <a href="${process.env.CLIENT_BASE_URL}/reset-password?t=${token}">
-          ${process.env.CLIENT_BASE_URL}/reset-password?t=${token}
+        <a href="${process.env.CLIENT_BASE_URL}/reset-password?u=${user.id}&t=${token}">
+          ${process.env.CLIENT_BASE_URL}/reset-password?u=${user.id}&t=${token}
         </a>
         <p>If you do not wish to change your password, just ignore this email and nothing will happen.</p>
         `,
@@ -91,6 +93,24 @@ export const resetPassword = async ({ input }) => {
   }
 
   return { success: true }
+}
+
+export const resetPassword = async ({ input }) => {
+  const user = db.user.findOne({ where: { id: input.userId } })
+  const valid = verifyToken(input.token, user.password)
+  if (!valid) throw new Error(`Invalid password reset link`)
+
+  if (input.password !== input.confirmPassword)
+    throw new Error('Password confirmation does not match')
+
+  const hashedPassword = await hash(input.password, 10)
+  const updatedUser = await db.user.update({
+    where: { id: input.userId },
+    data: { password: hashedPassword },
+  })
+
+  const token = signToken(user, updatedUser.password)
+  return { user: updatedUser, token }
 }
 
 export const updateUser = ({ id, input }) => {
