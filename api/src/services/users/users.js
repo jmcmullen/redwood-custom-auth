@@ -44,9 +44,9 @@ export const createUser = async ({ input }) => {
 
   sendgrid.send({
     to: user.email,
-    from: 'noreply@texter.fun',
-    subject: 'Welcome to Texter.fun',
-    html: `<strong>Thanks for joining Texter.fun,</strong>
+    from: 'noreply@test.fun',
+    subject: 'Welcome to test.fun',
+    html: `<strong>Thanks for joining test.fun,</strong>
           <br><br>Click the link below to verify your account:<br>
           <a href="${process.env.CLIENT_BASE_URL}/verify?t=${user.verifyToken}">
           ${process.env.CLIENT_BASE_URL}/verify?t=${user.verifyToken}</a>`,

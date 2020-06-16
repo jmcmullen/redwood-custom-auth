@@ -40,7 +40,6 @@ export const schema = gql`
 
   type Mutation {
     login(id: ID!, password: String!): AuthResponse
-    createUser(input: CreateUserInput!): User!
     updateUser(id: String!, input: UpdateUserInput!): User!
     deleteUser(id: String!): User!
   }

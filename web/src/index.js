@@ -16,15 +16,15 @@ const engine = new Styletron()
 
 ReactDOM.render(
   <FatalErrorBoundary page={FatalErrorPage}>
-    {/* <AuthProvider client={authClient} type="custom"> */}
-    <RedwoodProvider>
-      <StyletronProvider value={engine}>
-        <BaseProvider theme={LightTheme}>
-          <Routes />
-        </BaseProvider>
-      </StyletronProvider>
-    </RedwoodProvider>
-    {/* </AuthProvider> */}
+    <AuthProvider client={authClient()} type="custom">
+      <RedwoodProvider>
+        <StyletronProvider value={engine}>
+          <BaseProvider theme={LightTheme}>
+            <Routes />
+          </BaseProvider>
+        </StyletronProvider>
+      </RedwoodProvider>
+    </AuthProvider>
   </FatalErrorBoundary>,
   document.getElementById('redwood-app')
 )

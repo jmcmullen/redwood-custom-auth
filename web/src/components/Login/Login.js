@@ -10,10 +10,15 @@ const LOGIN_MUTATION = gql`
   }
 `
 
-const NewUser = () => {
+const Login = () => {
   const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
-    onCompleted: () => {
-      navigate(routes.users())
+    onCompleted: ({ login }) => {
+      // Save Authentication Token
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem('token', login.token)
+      }
+
+      navigate(routes.dashboard())
     },
   })
 
@@ -24,4 +29,4 @@ const NewUser = () => {
   return <LoginForm onSave={onSave} loading={loading} error={error} />
 }
 
-export default NewUser
+export default Login

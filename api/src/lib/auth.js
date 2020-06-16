@@ -9,7 +9,9 @@ import { AuthenticationError, context } from '@redwoodjs/api'
 import { db } from './db'
 
 export const getCurrentUser = async ({ id }) => {
-  const user = await db.user.findOne({ where: id })
+  if (!id) return null
+
+  const user = await db.user.findOne({ where: { id } })
   if (!user)
     throw new AuthenticationError("You don't have permission to do that.")
 

@@ -1,18 +1,20 @@
-import { navigate } from '@redwoodjs/router'
+import { navigate, routes } from '@redwoodjs/router'
 
 const authClient = () => {
-  // console.log(client, 'client')
   return {
     type: 'custom',
-    logIn: async () => navigate.logIn(),
-    logOut: () => navigate.logOut(),
-    getToken: async () => window.localStorage.getItem('token'),
+    // client: () => {}, // Is this needed?
+    logIn: () => navigate(routes.logIn()), // Handle in app
+    logOut: () => navigate(routes.logOut()), // Handle in app
+    getToken: async () => window.localStorage.getItem('token') || 'false',
     currentUser: async () => {
-      // graphql request
+      // @TODO: Run GQL Query currentUser
+      return 'abc'
     },
-    // getUser: async () => {
-    //   console.log('getUser')
-    // },
+    getUserMetadata: () => {
+      // ??
+      return { token: 'test', test: true }
+    },
   }
 }
 
