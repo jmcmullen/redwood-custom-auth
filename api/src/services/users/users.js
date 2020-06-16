@@ -35,14 +35,14 @@ export const register = async ({ input }) => {
 
   const token = signToken(user, user.password)
 
-  sendgrid.send({
+  await sendgrid.send({
     to: user.email,
     from: 'noreply@nique.io',
     subject: 'Welcome to my website',
     html: `<strong>Thanks for joining my site,</strong>
           <br><br>Click the link below to verify your account:<br>
-          <a href="${process.env.CLIENT_BASE_URL}/verify?t=${token}">
-          ${process.env.CLIENT_BASE_URL}/verify?t=${token}</a>`,
+          <a href="${process.env.CLIENT_BASE_URL}/verify?u=${user.id}&t=${token}">
+          ${process.env.CLIENT_BASE_URL}/verify?u=${user.id}&t=${token}</a>`,
   })
 
   return { user, token: signToken(user) }
@@ -59,13 +59,16 @@ export const login = async ({ input }) => {
 }
 
 export const verify = async ({ input }) => {
-  const valid = verifyToken(input.token)
-  if (!valid) throw new Error('Invalid verification token')
+  const user = db.user.findOne({ where: { id: input.userId } })
+  const valid = verifyToken(input.token, user.password)
+  if (!valid) throw new Error(`Invalid account verification link`)
 
-  const user = await db.user.findOne({ where: { id: valid.id } })
-  if (!user) throw new Error('Invalid verification token')
+  const result = await db.user.update({
+    where: { id: input.userId },
+    data: { verified: true },
+  })
 
-  return await user.update({ data: { verified: true } })
+  return { user: result, token: signToken(result) }
 }
 
 export const forgotPassword = async ({ input }) => {
@@ -75,8 +78,6 @@ export const forgotPassword = async ({ input }) => {
 
   if (user) {
     const token = signToken(user, user.password)
-
-    sendgrid.setApiKey(process.env.SENDGRID_API_KEY)
 
     await sendgrid.send({
       to: user.email,
@@ -109,8 +110,7 @@ export const resetPassword = async ({ input }) => {
     data: { password: hashedPassword },
   })
 
-  const token = signToken(user, updatedUser.password)
-  return { user: updatedUser, token }
+  return { user: updatedUser, token: signToken(updateUser) }
 }
 
 export const updateUser = ({ id, input }) => {

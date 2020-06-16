@@ -1,10 +1,10 @@
 import DashboardLayout from 'src/layouts/DashboardLayout'
+import Verify from 'src/components/Verify'
 
-const VerifyPage = () => {
+const VerifyPage = ({ u, t }) => {
   return (
     <DashboardLayout>
-      <h1>VerifyPage</h1>
-      <p>Find me in ./web/src/pages/VerifyPage/VerifyPage.js</p>
+      <Verify userId={u} token={t} />
     </DashboardLayout>
   )
 }
