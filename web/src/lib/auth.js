@@ -17,7 +17,7 @@ const authClient = () => {
     },
     getUserMetadata: () => {
       // ??
-      return null
+      return window.localStorage.getItem('token')
     },
   }
 }

@@ -1,19 +1,10 @@
-// Define what you want `currentUser` to return throughout your app. For example,
-// to return a real user from your database, you could do something like:
-//
-//   export const getCurrentUser = async ({ email }) => {
-//     return await db.user.findOne({ where: { email } })
-//   }
 import { AuthenticationError, context } from '@redwoodjs/api'
 
-import { db } from './db'
+import { verifyToken } from './jwt'
 
-export const getCurrentUser = async ({ id }) => {
-  return await db.user.findOne({ where: { id } })
+export const getCurrentUser = async (token) => {
+  return verifyToken(token)
 }
-
-// Use this function in your services to check that a user is logged in, and
-// optionally raise an error if they're not.
 
 export const requireAuth = () => {
   if (!context.currentUser) {
