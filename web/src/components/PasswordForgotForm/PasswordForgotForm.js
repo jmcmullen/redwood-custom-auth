@@ -29,6 +29,7 @@ const PasswordResetForm = (props) => {
         <RHFInput
           name="email"
           type="email"
+          autoFocus
           setValue={setValue}
           error={!!errors.email}
           register={register({ required: true })}
