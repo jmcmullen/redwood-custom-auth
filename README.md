@@ -1,5 +1,7 @@
-# Redwood
->**HEADS UP:** RedwoodJS is _NOT_ ready for use in Production. It relies heavily on Prisma2, which is currently in testing with an expected production release coming soon. See status at ["Is Prisma2 Ready?"](https://isprisma2ready.com)
+# Redwood Custom Auth
+Instead of relying on third-party authentication providers, this project implements authentication over Redwood's built in API using Prisma and GraphQL.
+
+ - Also contains Styletron & Base Web components.
 
 ## Getting Started
 - [Redwoodjs.com](https://redwoodjs.com): home to all things RedwoodJS.
