@@ -1,5 +1,7 @@
 import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
+import { Heading, HeadingLevel } from 'baseui/heading'
+import { Paragraph2 } from 'baseui/typography'
 import PasswordResetForm from 'src/components/PasswordResetForm'
 import PasswordForgotForm from 'src/components/PasswordForgotForm'
 
@@ -49,11 +51,19 @@ const PasswordReset = ({ userId, resetToken }) => {
   return !sent ? (
     <>
       {!resetToken ? (
-        <PasswordForgotForm
-          onSave={onForgot}
-          loading={forgotStatus.loading}
-          error={forgotStatus.error}
-        />
+        <>
+          <HeadingLevel>
+            <Heading styleLevel={4}>Forgot Password</Heading>
+            <Paragraph2>
+              Enter the email associated with your account.
+            </Paragraph2>
+          </HeadingLevel>
+          <PasswordForgotForm
+            onSave={onForgot}
+            loading={forgotStatus.loading}
+            error={forgotStatus.error}
+          />
+        </>
       ) : (
         <PasswordResetForm
           onSave={onReset}
@@ -63,10 +73,13 @@ const PasswordReset = ({ userId, resetToken }) => {
       )}
     </>
   ) : (
-    <p>
-      Password reset instructions have been sent to you if an account exists
-      with that email.
-    </p>
+    <HeadingLevel>
+      <Heading styleLevel={4}>Email Sent</Heading>
+      <Paragraph2>
+        Password reset instructions have been sent to you if an account exists
+        with that email.
+      </Paragraph2>
+    </HeadingLevel>
   )
 }
 

@@ -13,8 +13,7 @@ import LogoImg from 'src/assets/images/logo.svg'
 import { NavLink } from './style'
 
 const Logo = styled(LogoImg, {
-  background: 'black',
-  width: '140px',
+  width: '70px',
   height: '50px',
 })
 
@@ -50,7 +49,7 @@ const Navbar = () => {
           </>
         ) : (
           <StyledNavigationItem>
-            <NavLink to={routes.logOut()}>Sign Out</NavLink>
+            <NavLink to={routes.logOut()}>Log Out</NavLink>
           </StyledNavigationItem>
         )}
       </StyledNavigationList>

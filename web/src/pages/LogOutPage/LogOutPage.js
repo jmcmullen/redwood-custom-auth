@@ -1,10 +1,19 @@
+import { useEffect } from 'react'
+import { useAuth } from '@redwoodjs/auth'
+import { navigate, routes } from '@redwoodjs/router'
+
 const LogOutPage = () => {
-  return (
-    <div>
-      <h1>LogOutPage</h1>
-      <p>Find me in ./web/src/pages/LogOutPage/LogOutPage.js</p>
-    </div>
-  )
+  const { logOut } = useAuth()
+
+  useEffect(() => {
+    const process = async () => {
+      await logOut()
+      navigate(routes.logIn())
+    }
+    process()
+  }, [logOut])
+
+  return null
 }
 
 export default LogOutPage

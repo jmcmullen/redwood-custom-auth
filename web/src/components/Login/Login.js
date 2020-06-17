@@ -1,5 +1,6 @@
 import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth'
 import LoginForm from 'src/components/LoginForm'
 
 const LOGIN_MUTATION = gql`
@@ -16,14 +17,11 @@ const LOGIN_MUTATION = gql`
 `
 
 const Login = () => {
+  const { logIn } = useAuth()
   const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
-    onCompleted: ({ login }) => {
-      // Save Authentication Token
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem('token', login.token)
-      }
-
-      navigate(routes.dashboard())
+    onCompleted: async ({ login }) => {
+      await logIn(login.token)
+      await navigate(routes.dashboard())
     },
   })
 
