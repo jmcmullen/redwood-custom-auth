@@ -6,9 +6,9 @@
     "defaults"
   ],
   "dependencies": {
-    "@redwoodjs/auth": "^0.10.1-canary.12",
-    "@redwoodjs/router": "^0.10.1-canary.12",
-    "@redwoodjs/web": "^0.10.1-canary.12",
+    "@redwoodjs/auth": "^0.19.2",
+    "@redwoodjs/router": "^0.19.2",
+    "@redwoodjs/web": "^0.19.2",
     "baseui": "^9.84.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
