@@ -1,0 +1,68 @@
+# See the full yml reference at https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml/
+service:
+  name: example
+
+plugins:
+  # - serverless-dotenv-plugin
+  - serverless-domain-manager
+  - serverless-finch
+
+custom:
+  dotenv:
+    include: []
+  customDomain:
+    apiType: http
+    domainName: api.example.com
+    stage: production
+    createRoute53Record: true
+    endpointType: regional
+    basePath: ''
+    autoDomain: true
+  client:
+    bucketName: example.com
+    distributionFolder: web/dist
+    indexDocument: index.html
+    errorDocument: index.html
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-southeast-2
+  httpApi:
+    cors:
+      allowedOrigins:
+        - https://example.com
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowedMethods:
+        - OPTIONS
+        - GET
+        - POST
+      allowCredentials: true
+      maxAge: 6000
+    payload: '1.0'
+
+package:
+  individually: true
+
+functions:
+  graphql:
+    description: graphql function deployed on AWS Lambda
+    package:
+      artifact: api/dist/zipball/graphql.zip
+    memorySize: 1024
+    timeout: 25
+    environment:
+      CLIENT_BASE_URL: ${env:CLIENT_BASE_URL}
+      SENDGRID_API_KEY: ${env:SENDGRID_API_KEY}
+      DATABASE_URL: ${env:DATABASE_URL}
+      TOKEN_SECRET: ${env:TOKEN_SECRET}
+    handler: graphql.handler
+    events:
+      - httpApi:
+          path: /graphql
+          method: GET
+      - httpApi:
+          path: /graphql
+          method: POST

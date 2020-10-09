@@ -19,6 +19,10 @@ export const handler = createGraphQLHandler({
     schemas,
     services: makeServices({ services }),
   }),
+  cors: {
+    origin: 'https://example.com',
+    credentials: true,
+  },
   db,
   getCurrentUser,
 })
